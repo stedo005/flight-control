@@ -14,11 +14,12 @@ class AdminController(
     fun getAllPilots() = pilots.findAll()
 
     @GetMapping("/make")
-    fun makePilot() {
+    fun makePilot(): String {
         pilots.save(
             Userinnen(
                 bla = "Steve"
             )
         )
+        return "user saved"
     }
 }
