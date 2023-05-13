@@ -11,7 +11,9 @@ class AdminController(
     private val pilots: Pilots
 ) {
     @GetMapping("/all-pilots")
-    fun getAllPilots() = pilots.findAll()
+    fun getAllPilots(): MutableList<Userinnen> {
+        return pilots.findAll()
+    }
 
     @GetMapping("/make")
     fun makePilot(): String {
