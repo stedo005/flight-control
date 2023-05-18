@@ -1,3 +1,5 @@
+
 plugins {
-    id ("com.moowork.node") version "1.2.0"
+    base
+    id("com.github.node-gradle.node") version "5.0.0"
 }
