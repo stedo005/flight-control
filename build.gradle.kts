@@ -1,4 +1,3 @@
-
 plugins {
     base
     id("io.spring.dependency-management") version "1.1.0" apply false
