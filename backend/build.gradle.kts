@@ -33,9 +33,6 @@ tasks.withType<Test> {
 
 tasks.withType<Copy> {
     dependsOn(
-        ":frontend:npm_install"
-    )
-    dependsOn(
         ":frontend:npm_run_build"
     )
     from("../frontend/build") {
