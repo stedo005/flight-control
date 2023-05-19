@@ -14,13 +14,7 @@ root.render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<App />}>
-                        <Route path={"/:categoryId"} element={<Category />} />
-                        <Route path={"/budget/:categoryId"} element={<Budgetplanner />} />
-                        <Route path={"/chartItem"} element={<ChartItem />} />
-                        <Route path={"/categories"} element={<Categories />} />
-                        <Route path={"/compare-overview"} element={<CompareOverview />} />
-                        <Route path={"/compare/:categoryId"} element={<CompareSales />} />
-                        <Route path={"/"} element={<BudgetOverview />} />
+                    
                     </Route>
                 </Routes>
             </BrowserRouter>
