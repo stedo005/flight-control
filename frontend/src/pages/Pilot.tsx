@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 
-function Home() {
+function Pilot() {
 
   interface Pilot {
     id: string
@@ -9,6 +9,7 @@ function Home() {
   }
 
   const [pilots, setPilots] = useState([] as Array<Pilot>)
+  const [pilotName, setPilotName] = useState("")
 
   const fetchPilots = () => {
     fetch("http://localhost:8080/api/admin/all-pilots", {
@@ -24,8 +25,11 @@ function Home() {
   }
 
   const createPilot = () => {
-    fetch("http://localhost:8080/api/admin/create-pilot", {
-      method: "GET",
+    fetch("http://localhost:8080/api/pilot/create", {
+      method: "POST",
+      body: JSON.stringify({
+        "name": pilotName
+      }),
       headers: {
         "Content-Type": "application/json",
       }
@@ -35,7 +39,10 @@ function Home() {
   return (
     <div>
       <p>Hallo</p>
-      <button onClick={createPilot}>neuer Pilot</button>
+      <div>
+        <button onClick={createPilot}>Pilot anlegen</button>
+        <input type={"text"} onChange={event => setPilotName(event.target.value)} />
+      </div>
       <button onClick={fetchPilots}>alle Piloten</button>
       {
         pilots.map(pilot => <p>{pilot.name}</p>)
@@ -44,4 +51,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Pilot;
