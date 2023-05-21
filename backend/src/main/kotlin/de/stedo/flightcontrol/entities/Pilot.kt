@@ -8,6 +8,7 @@ class Pilot(
         @Id
         val id: String = UUID.randomUUID().toString(),
         val name: String,
+        val password: String,
         @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         @JoinColumn(name = "pilot_id", referencedColumnName = "id")
         val rcModels: Set<RcModel> = emptySet(),

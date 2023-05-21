@@ -26,7 +26,8 @@ class AdminController(
     fun createPilot(): String {
         pilots.save(
             Pilot(
-                name = "Steve"
+                name = "Steve",
+                password = "123"
             )
         )
         return "user saved"

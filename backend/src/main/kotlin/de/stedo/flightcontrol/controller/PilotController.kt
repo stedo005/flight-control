@@ -26,7 +26,8 @@ class PilotController(
     fun createPilot(@RequestBody pilot: Pilot): String {
         pilots.save(
             Pilot(
-                name = pilot.name
+                name = pilot.name,
+                password = "123"
             )
         )
         return "Pilot gespeichert!"
