@@ -1,13 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate()
   return (
     <div>
-      General output
-      <Outlet/>
+      <button onClick={() => navigate("./login")}>login</button>
+      <button onClick={() => navigate("./pilot")}>pilot</button>
+      <Outlet />
     </div>
   );
 }

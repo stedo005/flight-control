@@ -11,7 +11,7 @@ function Home() {
   const [pilots, setPilots] = useState([] as Array<Pilot>)
 
   const fetchPilots = () => {
-    fetch("http://localhost:8080/api/admin/all-pilots", {
+    fetch("http://localhost:8080/api/pilot/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
