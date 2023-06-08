@@ -2,9 +2,8 @@ package de.stedo.flightcontrol
 
 import de.stedo.flightcontrol.entities.Pilot
 import de.stedo.flightcontrol.entities.RcModel
-import de.stedo.flightcontrol.repository.Pilots
-import de.stedo.flightcontrol.repository.RcModels
-import org.springframework.web.bind.annotation.CrossOrigin
+import de.stedo.flightcontrol.repository.PilotRepository
+import de.stedo.flightcontrol.repository.RcModelRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,20 +12,21 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/admin")
 class AdminController(
-    private val pilots: Pilots,
-    private val rcModels: RcModels,
+    private val pilotRepository: PilotRepository,
+    private val rcModelRepository: RcModelRepository,
 ) {
     @GetMapping("/all-pilots")
     fun getAllPilots(): MutableList<Pilot> {
-        return pilots.findAll()
+        return pilotRepository.findAll()
     }
 
     @GetMapping("/create-pilot")
     fun createPilot(): String {
-        pilots.save(
+        pilotRepository.save(
             Pilot(
                 name = "Steve",
-                password = "123"
+                password = "123",
+                role = "USER",
             )
         )
         return "user saved"
@@ -34,7 +34,7 @@ class AdminController(
 
     @GetMapping("/create-model/{id}")
     fun createRcModel(@PathVariable id: String) {
-        rcModels.save(
+        rcModelRepository.save(
             RcModel(
                 name = "heli",
                 pilotId = id

@@ -16,6 +16,7 @@ function Pilot() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
       }
     })
       .then(response => {
@@ -32,6 +33,7 @@ function Pilot() {
       }),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
       }
     })
   }

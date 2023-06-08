@@ -3,7 +3,6 @@ package de.stedo.flightcontrol.security
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -21,7 +20,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig() {
+class SecurityConfig(
+    private val jwtAuthFilter: JwtAuthFilter
+) {
+
+    @Bean
+    fun authenticationManager(
+        authConfig: AuthenticationConfiguration
+    ): AuthenticationManager? {
+        return authConfig.authenticationManager
+    }
 
     @Bean
     fun passwordEncoder(): BCryptPasswordEncoder {
@@ -30,19 +38,14 @@ class SecurityConfig() {
 
     @Bean
     fun userDetailsService(encoder: BCryptPasswordEncoder): UserDetailsService {
-         val manager = InMemoryUserDetailsManager()
-             manager.createUser(
+        val manager = InMemoryUserDetailsManager()
+        manager.createUser(
             withUsername("bla")
                 .password(encoder.encode("blubb"))
-                .roles("USER")
+                .roles("USER","ADMIN")
                 .build()
         )
         return manager
-    }
-
-    @Bean
-    fun authenticationManager(auth: AuthenticationConfiguration): AuthenticationManager {
-       return auth.authenticationManager
     }
 
     @Bean
@@ -53,15 +56,13 @@ class SecurityConfig() {
             .cors().configurationSource(corsConfigurationSource())
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/", "/home", "/api/pilot/all", "/static/**", "/api/login").permitAll()
+            .requestMatchers("/", "/home", "/static/**", "/api/auth").permitAll()
+            .requestMatchers("/api/pilot/all","/api/pilot/create").hasAnyRole("USER", "ADMIN")
             .anyRequest()
             .authenticated()
             .and()
-            .formLogin()
-            .loginPage("/api/login")
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build()
     }
 

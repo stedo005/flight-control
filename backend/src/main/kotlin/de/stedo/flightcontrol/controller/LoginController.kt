@@ -1,25 +1,28 @@
-package de.stedo.flightcontrol.security
+package de.stedo.flightcontrol.controller
 
+import de.stedo.flightcontrol.security.JwtUtils
+import de.stedo.flightcontrol.security.LoginData
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api/auth")
 class LoginController(
+    private val jwtUtils: JwtUtils,
     private val authenticationManager: AuthenticationManager,
+    private val userDetailsService: UserDetailsService,
 ) {
     private val logger = KotlinLogging.logger {}
-
     @PostMapping
-    fun login(@RequestBody loginData: LoginData) {
-        logger.info("geloggt")
+    fun login(@RequestBody loginData: LoginData): String {
         try {
             authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(
@@ -27,8 +30,14 @@ class LoginController(
                     loginData.password
                 )
             )
+            val grantedAuthorities = userDetailsService.loadUserByUsername(loginData.username).authorities.let { it ->
+                it.map { it.authority }
+            }
+            val claims: Map<String, Any> = mapOf("roles" to grantedAuthorities)
+            logger.info(grantedAuthorities.toString())
+            return jwtUtils.createToken(claims, loginData.username)
         } catch (e: Exception) {
-            throw IllegalAccessException("bad credentials")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials")
         }
     }
 }
