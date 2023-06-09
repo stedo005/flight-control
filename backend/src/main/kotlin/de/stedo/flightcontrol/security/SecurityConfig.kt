@@ -37,18 +37,6 @@ class SecurityConfig(
     }
 
     @Bean
-    fun userDetailsService(encoder: BCryptPasswordEncoder): UserDetailsService {
-        val manager = InMemoryUserDetailsManager()
-        manager.createUser(
-            withUsername("bla")
-                .password(encoder.encode("blubb"))
-                .roles("USER","ADMIN")
-                .build()
-        )
-        return manager
-    }
-
-    @Bean
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -56,8 +44,8 @@ class SecurityConfig(
             .cors().configurationSource(corsConfigurationSource())
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/", "/home", "/static/**", "/api/auth").permitAll()
-            .requestMatchers("/api/pilot/all","/api/pilot/create").hasAnyRole("USER", "ADMIN")
+            .requestMatchers("/", "/home", "/static/**", "/api/auth", "/api/pilot/create").permitAll()
+            .requestMatchers("/api/pilot/all").hasAnyRole("USER", "ADMIN")
             .anyRequest()
             .authenticated()
             .and()

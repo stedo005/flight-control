@@ -9,7 +9,7 @@ class Pilot(
         val id: String = UUID.randomUUID().toString(),
         val name: String,
         val password: String?,
-        val role: String?,
+        val roles: List<String>?,
         @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         @JoinColumn(name = "pilot_id", referencedColumnName = "id")
         val rcModels: Set<RcModel> = emptySet(),

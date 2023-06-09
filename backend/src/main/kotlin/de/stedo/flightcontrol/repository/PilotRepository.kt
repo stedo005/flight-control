@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PilotRepository : JpaRepository<Pilot, String> {
+    fun findByName(name: String): Pilot
 }

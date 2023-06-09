@@ -32,8 +32,7 @@ function Pilot() {
         "name": pilotName
       }),
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
+        "Content-Type": "application/json"
       }
     })
   }

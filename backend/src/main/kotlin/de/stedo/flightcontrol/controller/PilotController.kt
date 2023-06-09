@@ -29,8 +29,8 @@ class PilotController(
         pilotRepository.save(
             Pilot(
                 name = pilot.name,
-                password = "123",
-                role = "USER"
+                password = passwordEncoder.encode("123"),
+                roles = listOf("USER","ADMIN")
             )
         )
         return "Pilot gespeichert!"

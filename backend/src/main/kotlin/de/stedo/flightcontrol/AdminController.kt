@@ -26,7 +26,7 @@ class AdminController(
             Pilot(
                 name = "Steve",
                 password = "123",
-                role = "USER",
+                roles = listOf("USER"),
             )
         )
         return "user saved"

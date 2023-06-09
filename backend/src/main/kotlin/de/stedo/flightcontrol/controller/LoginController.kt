@@ -2,6 +2,7 @@ package de.stedo.flightcontrol.controller
 
 import de.stedo.flightcontrol.security.JwtUtils
 import de.stedo.flightcontrol.security.LoginData
+import de.stedo.flightcontrol.service.DatabaseUserDetailsService
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
@@ -18,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException
 class LoginController(
     private val jwtUtils: JwtUtils,
     private val authenticationManager: AuthenticationManager,
-    private val userDetailsService: UserDetailsService,
+    private val userDetailsService: DatabaseUserDetailsService,
 ) {
     private val logger = KotlinLogging.logger {}
     @PostMapping
