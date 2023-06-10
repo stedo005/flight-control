@@ -11,7 +11,7 @@ import java.util.*
 
 @Component
 class JwtUtils(@Value("{jwt.secret}") private val secret: String) {
-    fun createToken(claims: Map<String, Any>, subject: String?): String {
+    fun createToken(claims: Map<String, Any>, subject: String): String {
         return Jwts.builder()
             .setSubject(subject)
             .setIssuedAt(Date.from(Instant.now()))
@@ -21,7 +21,7 @@ class JwtUtils(@Value("{jwt.secret}") private val secret: String) {
             .compact()
     }
 
-    fun extractClaims(token: String?): Claims {
+    fun extractClaims(token: String): Claims {
         return Jwts.parser()
             .setSigningKey(secret)
             .parseClaimsJws(token)

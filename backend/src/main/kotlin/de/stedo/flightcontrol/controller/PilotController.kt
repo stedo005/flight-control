@@ -3,6 +3,7 @@ package de.stedo.flightcontrol.controller
 import de.stedo.flightcontrol.entities.Pilot
 import de.stedo.flightcontrol.repository.PilotRepository
 import de.stedo.flightcontrol.repository.RcModelRepository
+import de.stedo.flightcontrol.service.PilotService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,6 +19,7 @@ class PilotController(
     private val pilotRepository: PilotRepository,
     private val rcModelRepository: RcModelRepository,
     private val passwordEncoder: BCryptPasswordEncoder,
+    private val pilotService: PilotService,
 ) {
     @GetMapping("/all")
     fun getAllPilots(): MutableList<Pilot> {
@@ -25,14 +27,8 @@ class PilotController(
     }
 
     @PostMapping("/create")
-    fun createPilot(@RequestBody pilot: Pilot): String {
-        pilotRepository.save(
-            Pilot(
-                name = pilot.name,
-                password = passwordEncoder.encode("123"),
-                roles = listOf("USER","ADMIN")
-            )
-        )
-        return "Pilot gespeichert!"
+    fun createPilot(@RequestBody pilot: Pilot): Pilot {
+        pilot.password = passwordEncoder.encode(pilot.password)
+        return pilotService.createPilot(pilot)
     }
 }

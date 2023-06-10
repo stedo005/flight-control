@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ function App() {
   return (
     <div>
       <button onClick={() => navigate("./login")}>login</button>
+      <button onClick={() => navigate("./register")}>registrieren</button>
       <button onClick={() => navigate("./pilot")}>pilot</button>
       <Outlet />
     </div>

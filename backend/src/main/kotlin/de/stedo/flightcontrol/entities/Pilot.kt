@@ -7,9 +7,11 @@ import java.util.UUID
 class Pilot(
         @Id
         val id: String = UUID.randomUUID().toString(),
-        val name: String,
-        val password: String?,
-        val roles: List<String>?,
+        val username: String,
+        val surname: String,
+        val lastname: String,
+        var password: String,
+        val roles: List<String> = listOf("USER"),
         @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         @JoinColumn(name = "pilot_id", referencedColumnName = "id")
         val rcModels: Set<RcModel> = emptySet(),

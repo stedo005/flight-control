@@ -12,9 +12,9 @@ class DatabaseUserDetailsService(
     private val pilotRepository: PilotRepository,
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
-        val user = pilotRepository.findByName(username)
+        val user = pilotRepository.findByUsername(username)
         return User(
-            user.name, user.password, user.roles?.map { GrantedAuthority { "ROLE_$it" } }
+            user.username, user.password, user.roles?.map { GrantedAuthority { "ROLE_$it" } }
         )
     }
 }

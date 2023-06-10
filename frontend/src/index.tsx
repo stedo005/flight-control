@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Pilot from './pages/Pilot';
 import Login from './pages/Login';
-import Auth from './pages/Auth';
+import Register from './pages/Register';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,7 +21,7 @@ root.render(
                         <Route path="/home" element={<Home />} />
                         <Route path="/pilot" element={<Pilot />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/auth" element={<Auth />} />
+                        <Route path="/register" element={<Register />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
