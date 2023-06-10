@@ -1,9 +1,11 @@
 package de.stedo.flightcontrol.controller
 
 import de.stedo.flightcontrol.entities.Pilot
+import de.stedo.flightcontrol.entities.PilotDto
 import de.stedo.flightcontrol.repository.PilotRepository
 import de.stedo.flightcontrol.repository.RcModelRepository
 import de.stedo.flightcontrol.service.PilotService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -28,8 +30,13 @@ class PilotController(
     }
 
     @PostMapping("/create")
-    fun createPilot(@RequestBody pilot: Pilot): ResponseEntity<Pilot> {
-        pilot.password = passwordEncoder.encode(pilot.password)
-        return pilotService.createPilot(pilot)
+    fun createPilot(@RequestBody pilotDto: PilotDto): ResponseEntity<PilotDto> {
+        return if (pilotDto.registerKey != "42") {
+            ResponseEntity(HttpStatus.NOT_ACCEPTABLE)
+        } else {
+            val pilot = pilotDto.toPilot(pilotDto)
+            pilot.password = passwordEncoder.encode(pilot.password)
+            pilotService.createPilot(pilot)
+        }
     }
 }

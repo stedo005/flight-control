@@ -5,7 +5,6 @@ import { checkLogin } from '../service/CheckLogin';
 function Pilot() {
 
   interface Pilot {
-    id: string
     username: string
     surname: string
     lastname: string
@@ -39,25 +38,9 @@ function Pilot() {
       })
   }
 
-  const createPilot = () => {
-    fetch("http://localhost:8080/api/pilot/create", {
-      method: "POST",
-      body: JSON.stringify({
-        "username": pilotName
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-  }
-
   return (
     <div>
       <p>{errMsg}</p>
-      <div>
-        <button onClick={createPilot}>Pilot anlegen</button>
-        <input type={"text"} onChange={event => setPilotName(event.target.value)} />
-      </div>
       <button onClick={fetchPilots}>alle Piloten</button>
       {
         pilots.map(pilot => <p>{pilot.username}</p>)
