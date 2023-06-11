@@ -44,9 +44,6 @@ function Pilot() {
       <p>{errMsg}</p>
       <p>Willkommen {user}</p>
       <button onClick={fetchPilot}>Modelle</button>
-      {
-        pilots.map(pilot => <p>{pilot.username}</p>)
-      }
     </div>
   );
 }

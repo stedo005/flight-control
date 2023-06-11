@@ -16,8 +16,8 @@ class Pilot(
     @JoinColumn(name = "pilot_id", referencedColumnName = "id")
     val rcModels: Set<RcModel> = emptySet(),
 ) {
-    fun toDto(pilot: Pilot): PilotDto {
-        return PilotDto(
+    fun toDto(pilot: Pilot): CreatePilotDto {
+        return CreatePilotDto(
             username = pilot.username,
             registerKey = null,
             surname = pilot.surname,
@@ -27,19 +27,19 @@ class Pilot(
     }
 }
 
-class PilotDto(
+class CreatePilotDto(
     val username: String,
     val registerKey: String?,
     val surname: String,
     val lastname: String,
     val password: String?,
 ) {
-    fun toPilot(pilotDto: PilotDto): Pilot{
+    fun toPilot(createPilotDto: CreatePilotDto): Pilot{
         return Pilot(
-            username = pilotDto.username,
-            surname = pilotDto.surname,
-            lastname = pilotDto.lastname,
-            password = pilotDto.password!!,
+            username = createPilotDto.username,
+            surname = createPilotDto.surname,
+            lastname = createPilotDto.lastname,
+            password = createPilotDto.password!!,
         )
     }
 }
