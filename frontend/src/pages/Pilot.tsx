@@ -5,14 +5,15 @@ import { checkLogin } from '../service/CheckLogin';
 function Pilot() {
 
   interface Pilot {
+    id: string
     username: string
     surname: string
     lastname: string
-    password: string
   }
 
   const [pilots, setPilots] = useState([] as Array<Pilot>)
-  const [pilotName, setPilotName] = useState("")
+  const [pilot, setPilot] = useState({} as Pilot)
+  const user = localStorage.getItem("user")
   const [errMsg, setErrMsg] = useState("")
 
   useEffect(() => {
@@ -20,8 +21,8 @@ function Pilot() {
     return () => clearTimeout(timeoutId);
   }, [errMsg]);
 
-  const fetchPilots = () => {
-    fetch("http://localhost:8080/api/pilot/all", {
+  const fetchPilot = () => {
+    fetch(`http://localhost:8080/api/pilot/${user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +33,7 @@ function Pilot() {
         checkLogin(response);
         return response.json()
       })
-      .then((responseBody: Array<Pilot>) => setPilots(responseBody))
+      .then((responseBody: Pilot) => setPilot(responseBody))
       .catch((e: Error) => {
         setErrMsg(e.message)
       })
@@ -41,7 +42,8 @@ function Pilot() {
   return (
     <div>
       <p>{errMsg}</p>
-      <button onClick={fetchPilots}>alle Piloten</button>
+      <p>Willkommen {user}</p>
+      <button onClick={fetchPilot}>Modelle</button>
       {
         pilots.map(pilot => <p>{pilot.username}</p>)
       }

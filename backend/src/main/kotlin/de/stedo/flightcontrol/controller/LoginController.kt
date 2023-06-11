@@ -1,5 +1,6 @@
 package de.stedo.flightcontrol.controller
 
+import de.stedo.flightcontrol.entities.AuthData
 import de.stedo.flightcontrol.security.JwtUtils
 import de.stedo.flightcontrol.security.LoginData
 import de.stedo.flightcontrol.service.DatabaseUserDetailsService
@@ -23,7 +24,7 @@ class LoginController(
 ) {
     private val logger = KotlinLogging.logger {}
     @PostMapping
-    fun login(@RequestBody loginData: LoginData): ResponseEntity<String> {
+    fun login(@RequestBody loginData: LoginData): ResponseEntity<AuthData> {
         try {
             authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(
@@ -36,7 +37,12 @@ class LoginController(
             }
             val claims: Map<String, Any> = mapOf("roles" to grantedAuthorities)
             logger.info(grantedAuthorities.toString())
-            return ResponseEntity(jwtUtils.createToken(claims, loginData.username), HttpStatus.OK)
+            val token = jwtUtils.createToken(claims, loginData.username)
+            val authData = AuthData(
+                token,
+                loginData.username
+            )
+            return ResponseEntity(authData, HttpStatus.OK)
         } catch (e: Exception) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials")
         }

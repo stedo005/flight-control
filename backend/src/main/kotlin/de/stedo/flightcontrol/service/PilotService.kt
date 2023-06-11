@@ -19,4 +19,7 @@ class PilotService(
             ResponseEntity(HttpStatus.CONFLICT)
         }
     }
+
+    fun getPilot(user: String): ResponseEntity<Pilot> =
+        ResponseEntity(pilotRepository.findByUsername(user), HttpStatus.OK)
 }

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 function App() {
+
   const navigate = useNavigate()
+
   return (
     <div>
       <button onClick={() => navigate("./login")}>login</button>
