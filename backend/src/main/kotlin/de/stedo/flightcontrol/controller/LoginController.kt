@@ -1,6 +1,7 @@
 package de.stedo.flightcontrol.controller
 
 import de.stedo.flightcontrol.entities.AuthData
+import de.stedo.flightcontrol.repository.PilotRepository
 import de.stedo.flightcontrol.security.JwtUtils
 import de.stedo.flightcontrol.security.LoginData
 import de.stedo.flightcontrol.service.DatabaseUserDetailsService
@@ -21,6 +22,7 @@ class LoginController(
     private val jwtUtils: JwtUtils,
     private val authenticationManager: AuthenticationManager,
     private val userDetailsService: DatabaseUserDetailsService,
+    private val pilotRepository: PilotRepository,
 ) {
     private val logger = KotlinLogging.logger {}
     @PostMapping
@@ -38,9 +40,11 @@ class LoginController(
             val claims: Map<String, Any> = mapOf("roles" to grantedAuthorities)
             logger.info(grantedAuthorities.toString())
             val token = jwtUtils.createToken(claims, loginData.username)
+            val userId = pilotRepository.findByUsername(loginData.username)!!.id
             val authData = AuthData(
                 token,
-                loginData.username
+                loginData.username,
+                userId
             )
             return ResponseEntity(authData, HttpStatus.OK)
         } catch (e: Exception) {

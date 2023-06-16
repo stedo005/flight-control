@@ -6,6 +6,7 @@ function Login() {
   interface AuthData {
     token: string
     username: string
+    userId: string
   }
 
   const [username, setUsername] = useState("")
@@ -37,6 +38,7 @@ function Login() {
       .then((body: AuthData) => {
         localStorage.setItem("token", body.token)
         localStorage.setItem("user", body.username)
+        localStorage.setItem("userId", body.userId)
       })
       .catch((e: Error) => {
         setErrMsg(e.message)

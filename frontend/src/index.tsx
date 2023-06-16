@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import Pilot from './pages/Pilot';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AddRcModel from './pages/AddRcModel';
+import RcModel from './pages/RcModel';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,6 +24,8 @@ root.render(
                         <Route path="/pilot" element={<Pilot />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/add-rc-model" element={<AddRcModel />} />
+                        <Route path="/rc-model/:modelId" element={<RcModel />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

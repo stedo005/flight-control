@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
 import { checkLogin } from '../service/CheckLogin';
 
-function Pilot() {
-
-  interface Pilot {
-    rcModels: Array<RcModel>
-  }
+function RcModel() {
 
   interface RcModel {
     id: string
@@ -15,8 +11,9 @@ function Pilot() {
   }
 
   const navigate = useNavigate()
+  const param = useParams()
 
-  const [rcModels, setRcModels] = useState([] as Array<RcModel>)
+  const [rcModel, setRcModel] = useState({} as RcModel)
   const user = localStorage.getItem("user")
   const [errMsg, setErrMsg] = useState("")
 
@@ -25,8 +22,8 @@ function Pilot() {
     return () => clearTimeout(timeoutId);
   }, [errMsg]);
 
-  const fetchPilot = () => {
-    fetch(`http://localhost:8080/api/pilot/${user}`, {
+  const fetchModel = () => {
+    fetch(`http://localhost:8080/api/model/${param.modelId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,8 +34,8 @@ function Pilot() {
         checkLogin(response);
         return response.json()
       })
-      .then((responseBody: Pilot) => {
-        setRcModels(responseBody.rcModels)
+      .then((responseBody: RcModel) => {
+        setRcModel(responseBody)
       })
       .catch((e: Error) => {
         setErrMsg(e.message)
@@ -49,17 +46,14 @@ function Pilot() {
     <div>
       <p>{errMsg}</p>
       <p>Willkommen {user}</p>
-      <button onClick={fetchPilot}>Alle Modelle</button>
+      <button onClick={fetchModel}>modell</button>
       <button onClick={() => navigate("/add-rc-model")}>Modell anlegen</button>
       <div>
-        {
-          rcModels
-            .map(model => <p key={model.id}><button onClick={() => navigate(`/rc-model/${model.id}`)}>{model.name}</button><button>zur Flugliste</button></p>)
-        }
+        {rcModel.name}
       </div>
     </div>
   );
 }
 
-export default Pilot;
+export default RcModel;
 
