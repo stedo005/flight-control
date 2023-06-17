@@ -5,7 +5,7 @@ function Register() {
 
   const [username, setUsername] = useState("")
   const [registerKey, setRegisterKey] = useState("")
-  const [surname, setSurname] = useState("")
+  const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
@@ -21,7 +21,7 @@ function Register() {
       body: JSON.stringify({
         "username": username,
         "registerKey": registerKey,
-        "surname": surname,
+        "firstname": firstname,
         "lastname": lastname,
         "password": password,
       }),
@@ -50,7 +50,7 @@ function Register() {
       <div>
         <p><input type={"text"} onChange={event => setUsername(event.target.value)} placeholder={"Username"} /></p>
         <p><input type={"text"} onChange={event => setRegisterKey(event.target.value)} placeholder={"Code"} /></p>
-        <p><input type={"text"} onChange={event => setSurname(event.target.value)} placeholder={"Vorname"} /></p>
+        <p><input type={"text"} onChange={event => setFirstname(event.target.value)} placeholder={"Vorname"} /></p>
         <p><input type={"text"} onChange={event => setLastname(event.target.value)} placeholder={"Nachname"} /></p>
         <p><input type={"text"} onChange={event => setPassword(event.target.value)} placeholder={"Passwort"} /></p>
         <button onClick={createPilot}>Pilot registrieren</button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { checkLogin } from '../service/CheckLogin';
@@ -21,11 +21,11 @@ function Pilot() {
   const [errMsg, setErrMsg] = useState("")
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => setErrMsg(''), 10000);
+    const timeoutId = setTimeout(() => setErrMsg(''), 10000)
     return () => clearTimeout(timeoutId);
-  }, [errMsg]);
+  }, [errMsg])
 
-  const fetchPilot = () => {
+  const fetchPilot = useCallback(() => {
     fetch(`http://localhost:8080/api/pilot/${user}`, {
       method: "GET",
       headers: {
@@ -43,18 +43,21 @@ function Pilot() {
       .catch((e: Error) => {
         setErrMsg(e.message)
       })
-  }
+  }, [user])
+
+  useEffect(() => {
+    fetchPilot()
+  }, [fetchPilot])
 
   return (
     <div>
       <p>{errMsg}</p>
       <p>Willkommen {user}</p>
-      <button onClick={fetchPilot}>Alle Modelle</button>
       <button onClick={() => navigate("/add-rc-model")}>Modell anlegen</button>
       <div>
         {
           rcModels
-            .map(model => <p key={model.id}><button onClick={() => navigate(`/rc-model/${model.id}`)}>{model.name}</button><button>zur Flugliste</button></p>)
+            .map(model => <p key={model.id}><button onClick={() => navigate(`/rc-model/${model.id}`)}>{model.name}</button></p>)
         }
       </div>
     </div>

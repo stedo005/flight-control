@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
 import { checkLogin } from '../service/CheckLogin';
@@ -22,7 +22,7 @@ function RcModel() {
     return () => clearTimeout(timeoutId);
   }, [errMsg]);
 
-  const fetchModel = () => {
+  const fetchModel = useCallback(() => {
     fetch(`http://localhost:8080/api/model/${param.modelId}`, {
       method: "GET",
       headers: {
@@ -40,16 +40,20 @@ function RcModel() {
       .catch((e: Error) => {
         setErrMsg(e.message)
       })
-  }
+  }, [param.modelId])
+
+  useEffect(() => {
+    fetchModel()
+  }, [fetchModel])
 
   return (
     <div>
       <p>{errMsg}</p>
       <p>Willkommen {user}</p>
-      <button onClick={fetchModel}>modell</button>
       <button onClick={() => navigate("/add-rc-model")}>Modell anlegen</button>
       <div>
         {rcModel.name}
+        <button>test</button>
       </div>
     </div>
   );
