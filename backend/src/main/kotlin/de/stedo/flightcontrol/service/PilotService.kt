@@ -20,6 +20,9 @@ class PilotService(
         }
     }
 
-    fun getPilot(user: String): ResponseEntity<Pilot> =
+    fun getPilotByUsername(user: String): ResponseEntity<Pilot> =
         ResponseEntity(pilotRepository.findByUsername(user), HttpStatus.OK)
+
+    fun getPilotById(id: String): ResponseEntity<Pilot> =
+        ResponseEntity(pilotRepository.findById(id).orElseThrow(), HttpStatus.OK)
 }

@@ -35,4 +35,8 @@ class FlightService(
     fun isModelOnFlightList(modelId: String): Boolean {
         return flightRepository.findById(modelId).isPresent
     }
+
+    fun getFlightById(id: String): ResponseEntity<Flight> {
+        return ResponseEntity(flightRepository.findById(id).orElseThrow(), HttpStatus.OK)
+    }
 }

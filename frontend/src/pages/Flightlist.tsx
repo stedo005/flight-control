@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { Flight } from '../entities/interfaces';
 import { checkLogin } from '../service/CheckLogin';
+import FlightItem from './FlightItem';
 
 function Flightlist() {
 
@@ -45,8 +46,8 @@ function Flightlist() {
       <p>{errMsg}</p>
       {
         flightlist.length > 0
-        ? flightlist.map((flight) => <p key={flight.rcModel.id}>{flight.rcModel.name}</p>)
-        : "Noch will niemand fliegen ;)"
+          ? flightlist.map((flight) => <p key={flight.rcModel.id}><FlightItem rcModel={flight.rcModel} /></p>)
+          : "Noch will niemand fliegen ;)"
       }
     </div>
   );

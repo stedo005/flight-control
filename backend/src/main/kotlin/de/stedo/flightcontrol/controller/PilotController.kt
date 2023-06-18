@@ -28,9 +28,14 @@ class PilotController(
         return pilotRepository.findAll()
     }
 
-    @GetMapping("/{user}")
-    fun getPilot(@PathVariable user: String): ResponseEntity<Pilot> {
-        return pilotService.getPilot(user)
+    @GetMapping("/{username}")
+    fun getPilotByUsername(@PathVariable username: String): ResponseEntity<Pilot> {
+        return pilotService.getPilotByUsername(username)
+    }
+
+    @GetMapping("/by-id/{id}")
+    fun getPilotById(@PathVariable id: String): ResponseEntity<Pilot> {
+        return pilotService.getPilotById(id)
     }
 
     @PostMapping("/create")

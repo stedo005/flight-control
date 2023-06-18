@@ -17,7 +17,7 @@ function RcModelItem(props: RcModelItemProps) {
   const [isOnFlightlist, setIsOnFlightlist] = useState(Boolean)
 
   const addFlight = () => {
-    fetch(`http://localhost:8080/api/flight/add/${props.rcModel?.id}`, {
+    fetch(`http://localhost:8080/api/flight/add/${props.rcModel.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ function RcModelItem(props: RcModelItemProps) {
   }
 
   const checkFlightList = useCallback(() => {
-    fetch(`http://localhost:8080/api/flight/is-model-on-flightlist/${props.rcModel?.id}`, {
+    fetch(`http://localhost:8080/api/flight/is-model-on-flightlist/${props.rcModel.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ function RcModelItem(props: RcModelItemProps) {
 
   return (
     <>
-      {props.rcModel?.name}
+      {props.rcModel.name}
       {
         isOnFlightlist
           ? ""

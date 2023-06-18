@@ -21,6 +21,11 @@ class FlightController(
         return flightService.getAllFlights()
     }
 
+    @GetMapping("/{id}")
+    fun getFlightById(@PathVariable id: String): ResponseEntity<Flight>{
+        return flightService.getFlightById(id)
+    }
+
     @PostMapping("/add/{modelId}")
     fun addFlight(@PathVariable modelId: String): ResponseEntity<Flight> = flightService.addFlight(modelId)
 
