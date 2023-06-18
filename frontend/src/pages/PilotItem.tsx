@@ -1,18 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { Pilot, RcModel } from '../entities/interfaces';
 import { checkLogin } from '../service/CheckLogin';
+import RcModelItem from './RcModelItem';
 
-function Pilot() {
-
-  interface Pilot {
-    rcModels: Array<RcModel>
-  }
-
-  interface RcModel {
-    id: string
-    name: string
-  }
+function PilotItem() {
 
   const navigate = useNavigate()
 
@@ -56,13 +49,16 @@ function Pilot() {
       <button onClick={() => navigate("/add-rc-model")}>Modell anlegen</button>
       <div>
         {
-          rcModels
-            .map(model => <p key={model.id}><button onClick={() => navigate(`/rc-model/${model.id}`)}>{model.name}</button></p>)
+          rcModels.length > 0
+            ?
+            rcModels.map(model => <p key={model.id} ><RcModelItem rcModel={model} onItemChange={fetchPilot}/></p>)
+            :
+            "Du hast noch keine Modelle angelegt."
         }
       </div>
     </div>
   );
 }
 
-export default Pilot;
+export default PilotItem;
 
