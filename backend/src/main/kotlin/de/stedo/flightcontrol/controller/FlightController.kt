@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController
 class FlightController(
     private val flightService: FlightService,
 ) {
+    @GetMapping
+    fun getAllFlights(): ResponseEntity<List<Flight>> {
+        return flightService.getAllFlights()
+    }
+
     @PostMapping("/add/{modelId}")
     fun addFlight(@PathVariable modelId: String): ResponseEntity<Flight> = flightService.addFlight(modelId)
 

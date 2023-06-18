@@ -9,6 +9,7 @@ import Pilot from './pages/PilotItem';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddRcModel from './pages/AddRcModel';
+import Flightlist from './pages/Flightlist';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,6 +25,7 @@ root.render(
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/add-rc-model" element={<AddRcModel />} />
+                        <Route path="/flightlist" element={<Flightlist />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

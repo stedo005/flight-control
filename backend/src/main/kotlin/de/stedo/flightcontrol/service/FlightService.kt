@@ -15,6 +15,10 @@ class FlightService(
     private val flightRepository: FlightRepository,
     private val rcModelRepository: RcModelRepository,
 ) {
+    fun getAllFlights(): ResponseEntity<List<Flight>> {
+        return ResponseEntity(flightRepository.findAll(), HttpStatus.OK)
+    }
+
     fun addFlight(modelId: String): ResponseEntity<Flight> {
         return if (flightRepository.findById(modelId).isPresent) {
             ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED)
