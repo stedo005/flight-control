@@ -43,7 +43,7 @@ class SecurityConfig(
             .cors().configurationSource(corsConfigurationSource())
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/", "/home", "/static/**", "/api/auth", "/api/pilot/create").permitAll()
+            .requestMatchers("/", "/home", "/static/**", "/api/auth", "/api/pilot/create", "/api/pilot/detail/*", "/api/flight").permitAll()
             .requestMatchers("/api/pilot/all").hasAnyRole("USER", "ADMIN")
             .anyRequest()
             .authenticated()

@@ -2,6 +2,7 @@ package de.stedo.flightcontrol.controller
 
 import de.stedo.flightcontrol.entities.Pilot
 import de.stedo.flightcontrol.entities.CreatePilotDto
+import de.stedo.flightcontrol.entities.PilotDetail
 import de.stedo.flightcontrol.repository.PilotRepository
 import de.stedo.flightcontrol.repository.RcModelRepository
 import de.stedo.flightcontrol.service.PilotService
@@ -36,6 +37,17 @@ class PilotController(
     @GetMapping("/by-id/{id}")
     fun getPilotById(@PathVariable id: String): ResponseEntity<Pilot> {
         return pilotService.getPilotById(id)
+    }
+
+    @GetMapping("/detail/{id}")
+    fun getPilotDetailById(@PathVariable id: String): ResponseEntity<PilotDetail> {
+        val pilot = pilotService.getPilotById(id)
+       return ResponseEntity(pilot.body?.let {
+            PilotDetail(
+                firstname = it.firstname,
+                lastname = it.lastname
+            )
+        }, HttpStatus.OK)
     }
 
     @PostMapping("/create")

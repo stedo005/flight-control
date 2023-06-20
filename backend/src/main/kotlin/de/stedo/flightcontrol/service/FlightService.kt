@@ -39,4 +39,8 @@ class FlightService(
     fun getFlightById(id: String): ResponseEntity<Flight> {
         return ResponseEntity(flightRepository.findById(id).orElseThrow(), HttpStatus.OK)
     }
+
+    fun deleteFlight(id: String) {
+        flightRepository.deleteById(id)
+    }
 }

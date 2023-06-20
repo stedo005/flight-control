@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { Flight } from '../entities/interfaces';
-import { checkLogin } from '../service/CheckLogin';
 import FlightItem from './FlightItem';
 
 function Flightlist() {
-
-  const navigate = useNavigate()
 
   const [flightlist, setFlightlist] = useState([] as Array<Flight>)
   const [errMsg, setErrMsg] = useState("")
@@ -22,11 +18,9 @@ function Flightlist() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
       }
     })
       .then((response) => {
-        checkLogin(response)
         return response.json()
       })
       .then((responseBody: Array<Flight>) => {
@@ -41,13 +35,23 @@ function Flightlist() {
     getAllFlights()
   }, [])
 
+  const isNotActualFlight = (id: string): boolean => {
+    return flightlist[0].rcModel.id !== id
+  }
+
   return (
     <div>
       <p>{errMsg}</p>
+      es fliegt gerade:
       {
         flightlist.length > 0
-          ? flightlist.map((flight) => <p key={flight.rcModel.id}><FlightItem rcModel={flight.rcModel} /></p>)
-          : "Noch will niemand fliegen ;)"
+          ? flightlist.map((flight) => <FlightItem
+            key={flight.rcModel.id}
+            rcModel={flight.rcModel}
+            isNotActualFlight={isNotActualFlight(flight.rcModel.id)}
+            onItemChange={getAllFlights}
+            justOneFlight={flightlist.length == 1} />)
+          : " Noch will niemand fliegen ;)"
       }
     </div>
   );

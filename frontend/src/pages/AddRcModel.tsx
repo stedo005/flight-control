@@ -8,6 +8,7 @@ function AddRcModel() {
   const navigate = useNavigate()
 
   const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
   const [errMsg, setErrMsg] = useState("")
 
   useEffect(() => {
@@ -20,6 +21,7 @@ function AddRcModel() {
       method: "POST",
       body: JSON.stringify({
         "name": name,
+        "description": description,
         "pilotId": localStorage.getItem("userId"),
       }),
       headers: {
@@ -40,6 +42,7 @@ function AddRcModel() {
     <div>
       <p>{errMsg}</p>
       <p><input type={"text"} onChange={event => setName(event.target.value)} placeholder={"Modellname"} /></p>
+      <p><input type={"text"} onChange={event => setDescription(event.target.value)} placeholder={"Beschreibung"} /></p>
       <button onClick={createModel}>Modell anlegen</button>
     </div>
   );

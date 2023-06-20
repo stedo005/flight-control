@@ -5,6 +5,7 @@ import de.stedo.flightcontrol.entities.IsOnFlightlist
 import de.stedo.flightcontrol.service.FlightService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -33,4 +34,10 @@ class FlightController(
     fun isModelOnFlightList(@PathVariable modelId: String): ResponseEntity<IsOnFlightlist> {
         return ResponseEntity(IsOnFlightlist(flightService.isModelOnFlightList(modelId)),HttpStatus.OK)
     }
+
+    @DeleteMapping("/delete/{id}")
+    fun deleteFlight(@PathVariable id: String) {
+        flightService.deleteFlight(id)
+    }
+
 }

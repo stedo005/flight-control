@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { RcModel } from '../entities/interfaces';
 import { checkLogin } from '../service/CheckLogin';
@@ -16,6 +17,8 @@ function RcModelItem(props: RcModelItemProps) {
 
   const [isOnFlightlist, setIsOnFlightlist] = useState(Boolean)
 
+  const navigate = useNavigate()
+
   const addFlight = () => {
     fetch(`http://localhost:8080/api/flight/add/${props.rcModel.id}`, {
       method: "POST",
@@ -29,6 +32,7 @@ function RcModelItem(props: RcModelItemProps) {
         return response.json()
       })
       .then(() => {
+        navigate("../flightlist")
         checkFlightList()
         props.onItemChange()
       })

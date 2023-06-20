@@ -44,7 +44,8 @@ class LoginController(
             val authData = AuthData(
                 token,
                 loginData.username,
-                userId
+                userId,
+                roles = grantedAuthorities
             )
             return ResponseEntity(authData, HttpStatus.OK)
         } catch (e: Exception) {

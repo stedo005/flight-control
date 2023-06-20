@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 function Register() {
@@ -9,6 +10,8 @@ function Register() {
   const [lastname, setLastname] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const timeoutId = setTimeout(() => setErrMsg(''), 10000);
@@ -38,6 +41,9 @@ function Register() {
         }
         return response.json()
       })
+      .then(() =>
+        navigate("../login")
+      )
       .catch((e: Error) => {
         setErrMsg(e.message)
       })

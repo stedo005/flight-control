@@ -10,6 +10,7 @@ class RcModel(
     @Id
     val id: String = UUID.randomUUID().toString(),
     val name: String,
+    val description: String,
     @Column(name = "pilot_id")
     val pilotId: String,
 )
