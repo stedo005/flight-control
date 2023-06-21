@@ -43,19 +43,21 @@ class SecurityConfig(
             .cors().configurationSource(corsConfigurationSource())
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/", "/home", "/static/**", "/api/auth", "/api/pilot/create", "/api/pilot/detail/*", "/api/flight").permitAll()
+            .requestMatchers("/**", "/index", "/static/**", "/api/auth", "/api/pilot/create", "/api/pilot/detail/*", "/api/flight").permitAll()
             .requestMatchers("/api/pilot/all").hasAnyRole("USER", "ADMIN")
             .anyRequest()
             .authenticated()
             .and()
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         return http.build()
     }
 
     private fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
+        configuration.addAllowedOrigin("http://localhost:8000")
         configuration.addAllowedOrigin("http://localhost:3000")
+        configuration.addAllowedOrigin("https://list-3p62.onrender.com")
         configuration.addAllowedMethod(CorsConfiguration.ALL)
         configuration.addAllowedHeader(CorsConfiguration.ALL)
         val source = UrlBasedCorsConfigurationSource()
