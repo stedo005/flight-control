@@ -19,7 +19,7 @@ function Register() {
   }, [errMsg]);
 
   const createPilot = () => {
-    fetch("http://localhost:8080/api/pilot/create", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/create`, {
       method: "POST",
       body: JSON.stringify({
         "username": username,

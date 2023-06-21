@@ -14,7 +14,7 @@ function Flightlist() {
   }, [errMsg]);
 
   const getAllFlights = () => {
-    fetch(`http://localhost:8080/api/flight`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

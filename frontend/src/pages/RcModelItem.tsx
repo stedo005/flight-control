@@ -20,7 +20,7 @@ function RcModelItem(props: RcModelItemProps) {
   const navigate = useNavigate()
 
   const addFlight = () => {
-    fetch(`http://localhost:8080/api/flight/add/${props.rcModel.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/add/${props.rcModel.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ function RcModelItem(props: RcModelItemProps) {
   }
 
   const checkFlightList = useCallback(() => {
-    fetch(`http://localhost:8080/api/flight/is-model-on-flightlist/${props.rcModel.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/is-model-on-flightlist/${props.rcModel.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

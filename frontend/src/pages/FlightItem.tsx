@@ -15,7 +15,7 @@ function FlightItem(props: FlightItemProps) {
   const [pilotRcModel, setPilotRcModel] = useState({} as Pilot)
 
   const getPilotRcModel = useCallback(() => {
-    fetch(`http://localhost:8080/api/pilot/detail/${props.rcModel.pilotId}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/detail/${props.rcModel.pilotId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function FlightItem(props: FlightItemProps) {
   }, [props.rcModel.pilotId])
 
   const deleteFromFlightList = (id: string) => {
-    fetch(`http://localhost:8080/api/flight/delete/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

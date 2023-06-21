@@ -11,7 +11,7 @@ function Home() {
   const [pilots, setPilots] = useState([] as Array<Pilot>)
 
   const fetchPilots = () => {
-    fetch("http://localhost:8080/api/pilot/all", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ function Home() {
   }
 
   const createPilot = () => {
-    fetch("http://localhost:8080/api/admin/create-pilot", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/admin/create-pilot`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

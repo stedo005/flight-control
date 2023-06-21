@@ -19,7 +19,7 @@ function PilotItem() {
   }, [errMsg])
 
   const fetchPilot = useCallback(() => {
-    fetch(`http://localhost:8080/api/pilot/${user}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/${user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

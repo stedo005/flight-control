@@ -24,7 +24,7 @@ function Login() {
   }, [errMsg]);
 
   const login = () => {
-    fetch(`http://localhost:8080/api/auth`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/auth`, {
       method: "POST",
       body: JSON.stringify({
         username,
@@ -53,7 +53,7 @@ function Login() {
   }
 
   const getPilot = (userId: string) => {
-    fetch(`http://localhost:8080/api/pilot/by-id/${userId}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/by-id/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

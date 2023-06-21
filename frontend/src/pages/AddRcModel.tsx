@@ -17,7 +17,7 @@ function AddRcModel() {
   }, [errMsg]);
 
   const createModel = () => {
-    fetch(`http://localhost:8080/api/model/create`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/model/create`, {
       method: "POST",
       body: JSON.stringify({
         "name": name,
