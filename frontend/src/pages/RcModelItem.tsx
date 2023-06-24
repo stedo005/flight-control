@@ -46,7 +46,7 @@ function RcModelItem(props: RcModelItemProps) {
         "Authorization": "Bearer " + localStorage.getItem("token")
       }
     })
-    .then(props.onItemChange)
+      .then(props.onItemChange)
   }
 
   const checkFlightList = useCallback(() => {
@@ -75,7 +75,7 @@ function RcModelItem(props: RcModelItemProps) {
       {props.rcModel.name}
       {
         isOnFlightlist
-          ? <><button >Modell bearbeiten</button></>
+          ? <><button onClick={() => navigate(`../update-rc-model/${props.rcModel.id}`)}>Modell bearbeiten</button></>
           : <><button onClick={addFlight}>Fliegen!</button><button onClick={deleteModel}>Modell löschen</button></>
       }
     </>

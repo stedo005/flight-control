@@ -4,8 +4,10 @@ import de.stedo.flightcontrol.entities.RcModel
 import de.stedo.flightcontrol.service.RcModelService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -20,6 +22,9 @@ class RcModelController(
 
     @PostMapping("/create")
     fun createModel(@RequestBody rcModel: RcModel) = rcModelService.createRcModel(rcModel)
+
+    @PutMapping("/update")
+    fun updateModel(@RequestBody rcModel: RcModel) = rcModelService.updateRcModel(rcModel)
 
     @DeleteMapping("/delete/{modelId}")
     fun deleteModel(@PathVariable modelId: String) = rcModelService.deleteModel(modelId)
