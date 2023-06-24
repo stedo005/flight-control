@@ -50,7 +50,7 @@ function Flightlist() {
             rcModel={flight.rcModel}
             isNotActualFlight={isNotActualFlight(flight.rcModel.id)}
             onItemChange={getAllFlights}
-            justOneFlight={flightlist.length == 1} />)
+            justOneFlight={flightlist.length === 1} />)
           : " Noch will niemand fliegen ;)"
       }
     </div>

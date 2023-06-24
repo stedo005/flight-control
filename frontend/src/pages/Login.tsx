@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { Pilot } from '../entities/interfaces';
-import { checkLogin } from '../service/CheckLogin';
+import { checkLogin } from '../service/Service';
 
 function Login() {
 
@@ -45,6 +45,7 @@ function Login() {
         localStorage.setItem("token", body.token)
         localStorage.setItem("user", body.username)
         localStorage.setItem("userId", body.userId)
+        localStorage.setItem("hideHangar", "false")
         getPilot(body.userId)
       })
       .catch((e: Error) => {

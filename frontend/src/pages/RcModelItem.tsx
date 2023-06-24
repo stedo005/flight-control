@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { RcModel } from '../entities/interfaces';
-import { checkLogin } from '../service/CheckLogin';
+import { checkLogin } from '../service/Service';
 
 interface RcModelItemProps {
   rcModel: RcModel

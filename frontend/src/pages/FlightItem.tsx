@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import '../App.css';
 import { Pilot, RcModel } from '../entities/interfaces';
-import { checkLogin } from '../service/CheckLogin';
+import { checkLogin, getBooleanFromLocalStorage } from '../service/Service';
 
 interface FlightItemProps {
   rcModel: RcModel
@@ -47,26 +47,12 @@ function FlightItem(props: FlightItemProps) {
     getPilotRcModel()
   }, [getPilotRcModel])
 
-  function isNotSpeaker(bool: string | null): boolean {
-    if (bool === null) {
-      return true
-    }
-    if (bool === "true") {
-      return true
-    }
-    if (bool === "false") {
-      return false
-    } else {
-      return true
-    }
-  }
-
   return (
     <>
       <p>{pilotRcModel.firstname} {pilotRcModel.lastname} mit {props.rcModel.name}
         <button
           onClick={() => deleteFromFlightList(props.rcModel.id)}
-          hidden={isNotSpeaker(localStorage.getItem("isNotSpeaker")) || props.isNotActualFlight}>Flug beendet</button>
+          hidden={getBooleanFromLocalStorage(localStorage.getItem("isNotSpeaker")) || props.isNotActualFlight}>Flug beendet</button>
       </p>
       <p hidden={props.isNotActualFlight}>Beschreibung: {props.rcModel.description}</p>
       <p hidden={props.isNotActualFlight || props.justOneFlight}>Nächster:</p>

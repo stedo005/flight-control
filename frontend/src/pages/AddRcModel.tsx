@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { checkLogin } from '../service/CheckLogin';
+import { checkLogin } from '../service/Service';
 
 function AddRcModel() {
 

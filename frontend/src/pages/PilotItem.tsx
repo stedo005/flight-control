@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import { Pilot, RcModel } from '../entities/interfaces';
-import { checkLogin } from '../service/CheckLogin';
+import { checkLogin } from '../service/Service';
 import RcModelItem from './RcModelItem';
 
 function PilotItem() {
