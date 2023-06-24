@@ -35,6 +35,9 @@ class FlightController(
         return ResponseEntity(IsOnFlightlist(flightService.isModelOnFlightList(modelId)),HttpStatus.OK)
     }
 
+    @GetMapping("/is-pilot-on-flightlist/{pilotId}")
+    fun isPilotOnFlightlist(@PathVariable pilotId: String) = flightService.isPilotOnFlightlist(pilotId)
+
     @DeleteMapping("/delete/{id}")
     fun deleteFlight(@PathVariable id: String) {
         flightService.deleteFlight(id)

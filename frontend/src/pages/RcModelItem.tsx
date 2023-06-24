@@ -16,6 +16,7 @@ interface IsOnFlightlist {
 function RcModelItem(props: RcModelItemProps) {
 
   const [isOnFlightlist, setIsOnFlightlist] = useState(Boolean)
+  const [isPilotOnFlightlist, setIsPilotOnFlightlist] = useState(Boolean)
 
   const navigate = useNavigate()
 
@@ -64,20 +65,36 @@ function RcModelItem(props: RcModelItemProps) {
       .then((responseBody: IsOnFlightlist) => {
         setIsOnFlightlist(responseBody.isOnFlightlist)
       })
-  }, [props.rcModel?.id])
+  }, [props.rcModel.id])
+
+  const checkIsPilotOnFlightList = useCallback(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/is-pilot-on-flightlist/${localStorage.getItem("userId")}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    })
+      .then((response) => {
+        checkLogin(response)
+        return response.json()
+      })
+      .then((responseBody: boolean) => {
+        setIsPilotOnFlightlist(responseBody)
+      })
+  }, [])
 
   useEffect(() => {
     checkFlightList()
-  }, [checkFlightList])
+    checkIsPilotOnFlightList()
+  }, [checkFlightList, checkIsPilotOnFlightList])
 
   return (
     <>
       {props.rcModel.name}
-      {
-        isOnFlightlist
-          ? <><button onClick={() => navigate(`../update-rc-model/${props.rcModel.id}`)}>Modell bearbeiten</button></>
-          : <><button onClick={addFlight}>Fliegen!</button><button onClick={deleteModel}>Modell löschen</button></>
-      }
+      <button onClick={() => navigate(`../update-rc-model/${props.rcModel.id}`)} >Modell bearbeiten</button>
+      <button onClick={deleteModel} hidden={isOnFlightlist}>Modell löschen</button>
+      <button onClick={addFlight} hidden={isPilotOnFlightlist}>Fliegen!</button>
     </>
   );
 }

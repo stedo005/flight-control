@@ -43,4 +43,8 @@ class FlightService(
     fun deleteFlight(id: String) {
         flightRepository.deleteById(id)
     }
+
+    fun isPilotOnFlightlist(pilotId: String): Boolean {
+        return flightRepository.findAll().any { flight -> flight.rcModel.pilotId == pilotId }
+    }
 }
