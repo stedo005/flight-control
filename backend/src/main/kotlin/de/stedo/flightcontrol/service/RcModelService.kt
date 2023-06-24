@@ -17,4 +17,8 @@ class RcModelService(
     fun createRcModel(rcModel: RcModel) {
         rcModelRepository.save(rcModel)
     }
+
+    fun deleteModel(modelId: String) {
+        rcModelRepository.deleteById(modelId)
+    }
 }

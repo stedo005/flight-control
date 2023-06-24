@@ -38,6 +38,17 @@ function RcModelItem(props: RcModelItemProps) {
       })
   }
 
+  const deleteModel = () => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/model/delete/${props.rcModel.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    })
+    .then(props.onItemChange)
+  }
+
   const checkFlightList = useCallback(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/is-model-on-flightlist/${props.rcModel.id}`, {
       method: "GET",
@@ -64,8 +75,8 @@ function RcModelItem(props: RcModelItemProps) {
       {props.rcModel.name}
       {
         isOnFlightlist
-          ? ""
-          : <button onClick={addFlight}>Fliegen!</button>
+          ? <><button >Modell bearbeiten</button></>
+          : <><button onClick={addFlight}>Fliegen!</button><button onClick={deleteModel}>Modell löschen</button></>
       }
     </>
   );
