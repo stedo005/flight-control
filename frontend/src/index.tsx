@@ -5,12 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Pilot from './pages/PilotItem';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddRcModel from './pages/AddRcModel';
 import Flightlist from './pages/Flightlist';
 import UpdateRcModel from './pages/UpdateRcModel';
+import PilotItem from './pages/PilotItem';
+import UpdatePilot from './pages/UpdatePilot';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,11 +23,12 @@ root.render(
                 <Routes>
                     <Route path="/" element={<App />}>
                         <Route path="/home" element={<Home />} />
-                        <Route path="/pilot" element={<Pilot />} />
+                        <Route path="/pilot" element={<PilotItem />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/add-rc-model" element={<AddRcModel />} />
                         <Route path="/update-rc-model/:modelId" element={<UpdateRcModel />} />
+                        <Route path="/update-pilot/:pilotId" element={<UpdatePilot />} />
                         <Route path="/flightlist" element={<Flightlist />} />
                     </Route>
                 </Routes>

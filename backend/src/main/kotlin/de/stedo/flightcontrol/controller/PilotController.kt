@@ -3,6 +3,7 @@ package de.stedo.flightcontrol.controller
 import de.stedo.flightcontrol.entities.Pilot
 import de.stedo.flightcontrol.entities.CreatePilotDto
 import de.stedo.flightcontrol.entities.PilotDetail
+import de.stedo.flightcontrol.entities.PilotUpdateDto
 import de.stedo.flightcontrol.repository.PilotRepository
 import de.stedo.flightcontrol.repository.RcModelRepository
 import de.stedo.flightcontrol.service.PilotService
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -60,4 +62,7 @@ class PilotController(
             pilotService.createPilot(pilot)
         }
     }
+
+    @PutMapping("/update")
+    fun updatePilot(@RequestBody pilotUpdateDto: PilotUpdateDto) = pilotService.updatePilot(pilotUpdateDto)
 }

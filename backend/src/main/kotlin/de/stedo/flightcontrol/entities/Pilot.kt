@@ -44,3 +44,9 @@ class CreatePilotDto(
     }
 }
 
+class PilotUpdateDto(
+    val id: String,
+    val firstname: String,
+    val lastname: String,
+)
+

@@ -2,6 +2,7 @@ package de.stedo.flightcontrol.service
 
 import de.stedo.flightcontrol.entities.Pilot
 import de.stedo.flightcontrol.entities.CreatePilotDto
+import de.stedo.flightcontrol.entities.PilotUpdateDto
 import de.stedo.flightcontrol.repository.PilotRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,4 +26,21 @@ class PilotService(
 
     fun getPilotById(id: String): ResponseEntity<Pilot> =
         ResponseEntity(pilotRepository.findById(id).orElseThrow(), HttpStatus.OK)
+
+    fun updatePilot(pilotUpdateDto: PilotUpdateDto): Pilot {
+        return pilotRepository.findById(pilotUpdateDto.id).orElseThrow()
+            .apply {
+                pilotRepository.save(
+                    Pilot(
+                        id = id,
+                        username = username,
+                        firstname = pilotUpdateDto.firstname,
+                        lastname = pilotUpdateDto.lastname,
+                        password = password,
+                        roles = roles,
+                        rcModels = rcModels
+                    )
+                )
+            }
+    }
 }
