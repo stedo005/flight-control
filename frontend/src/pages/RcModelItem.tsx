@@ -68,7 +68,7 @@ function RcModelItem(props: RcModelItemProps) {
   }, [props.rcModel.id])
 
   const checkIsPilotOnFlightList = useCallback(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/is-pilot-on-flightlist/${localStorage.getItem("userId")}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/flight/is-pilot-on-flightlist/${props.rcModel.pilotId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
