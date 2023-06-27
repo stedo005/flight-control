@@ -13,6 +13,7 @@ function App() {
 
   return (
     <div>
+      <button onClick={() => navigate("./admin")}>ADMIN</button>
       <button onClick={() => navigate("./login")}>login</button>
       <button onClick={logout}>logout</button>
       <button onClick={() => navigate("./register")}>registrieren</button>

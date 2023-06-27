@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddRcModel from './pages/AddRcModel';
@@ -12,6 +12,8 @@ import Flightlist from './pages/Flightlist';
 import UpdateRcModel from './pages/UpdateRcModel';
 import PilotItem from './pages/PilotItem';
 import UpdatePilot from './pages/UpdatePilot';
+import PilotItemAdmin from './pages/PilotItemAdmin';
+import AddRcModelAdmin from './pages/AddRcModelAdmin';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,11 +24,13 @@ root.render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<App />}>
-                        <Route path="/home" element={<Home />} />
+                        <Route path="/admin" element={<Admin />} />
                         <Route path="/pilot" element={<PilotItem />} />
+                        <Route path="/pilot-admin/:pilotId" element={<PilotItemAdmin />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/add-rc-model" element={<AddRcModel />} />
+                        <Route path="/add-rc-model-admin/:pilotId" element={<AddRcModelAdmin />} />
                         <Route path="/update-rc-model/:modelId" element={<UpdateRcModel />} />
                         <Route path="/update-pilot/:pilotId" element={<UpdatePilot />} />
                         <Route path="/flightlist" element={<Flightlist />} />
