@@ -33,6 +33,8 @@ function Flightlist() {
 
   useEffect(() => {
     getAllFlights()
+    const interval = setInterval(() => { getAllFlights() }, 60000)
+    return () => clearInterval(interval)
   }, [])
 
   const isNotActualFlight = (id: string): boolean => {

@@ -82,7 +82,7 @@ function RcModelItem(props: RcModelItemProps) {
       .then((responseBody: boolean) => {
         setIsPilotOnFlightlist(responseBody)
       })
-  }, [])
+  }, [props.rcModel.pilotId])
 
   useEffect(() => {
     checkFlightList()

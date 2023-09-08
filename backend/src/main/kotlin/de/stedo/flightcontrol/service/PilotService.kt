@@ -43,4 +43,6 @@ class PilotService(
                 )
             }
     }
+
+    fun deletePilot(id: String) = pilotRepository.deleteById(id)
 }

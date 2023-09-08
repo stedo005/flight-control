@@ -41,7 +41,6 @@ function Login() {
         return response.json()
       })
       .then((body: AuthData) => {
-        navigate("../flightlist")
         localStorage.setItem("token", body.token)
         localStorage.setItem("user", body.username)
         localStorage.setItem("userId", body.userId)
@@ -68,6 +67,7 @@ function Login() {
       .then((responseBody: Pilot) => {
         isNotAdmin(responseBody.roles)
         isNotSpeaker(responseBody.roles)
+        navigate(`../pilot/${responseBody.id}`)
       })
   }
 
@@ -94,7 +94,7 @@ function Login() {
       <p>{errMsg}</p>
       <div>
         <button onClick={login}>login</button>
-        <input type={"text"} onChange={event => setUsername(event.target.value)} placeholder={"Name"} />
+        <input type={"text"} onChange={event => setUsername(event.target.value)} placeholder={"Username"} />
         <input type={"text"} onChange={event => setPassword(event.target.value)} placeholder={"Passwort"} />
       </div>
     </div>

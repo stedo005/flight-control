@@ -16,8 +16,8 @@ function App() {
       <button onClick={() => navigate("./admin")} hidden={getBooleanFromLocalStorage(localStorage.getItem("isNotAdmin"))}>ADMIN</button>
       <button onClick={() => navigate("./login")}>login</button>
       <button onClick={logout}>logout</button>
-      <button onClick={() => navigate("./register")}>registrieren</button>
-      <button onClick={() => navigate("./pilot")} hidden={getBooleanFromLocalStorage(localStorage.getItem("hideHangar"))}>mein Hangar</button>
+      <button onClick={() => navigate("./register")}>als Pilot anmelden</button>
+      <button onClick={() => navigate(`./pilot/${localStorage.getItem("userId")}`)} hidden={getBooleanFromLocalStorage(localStorage.getItem("hideHangar"))}>mein Hangar</button>
       <button onClick={() => navigate("./flightlist")}>Flugliste</button>
       <Outlet />
     </div>

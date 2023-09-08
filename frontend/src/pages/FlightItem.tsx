@@ -53,6 +53,9 @@ function FlightItem(props: FlightItemProps) {
         <button
           onClick={() => deleteFromFlightList(props.rcModel.id)}
           hidden={getBooleanFromLocalStorage(localStorage.getItem("isNotSpeaker")) || props.isNotActualFlight}>Flug beendet</button>
+        <button
+          onClick={() => deleteFromFlightList(props.rcModel.id)}
+          hidden={getBooleanFromLocalStorage(localStorage.getItem("isNotAdmin")) || !props.isNotActualFlight}>löschen</button>
       </p>
       <p hidden={props.isNotActualFlight}>Beschreibung: {props.rcModel.description}</p>
       <p hidden={props.isNotActualFlight || props.justOneFlight}>Nächster:</p>

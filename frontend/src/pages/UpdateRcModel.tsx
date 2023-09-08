@@ -56,7 +56,7 @@ function UpdateRcModel() {
     })
       .then((response) => {
         checkLogin(response)
-        navigate("/pilot")
+        navigate(`../pilot/${rcModelOld.pilotId}`)
       })
       .catch((e: Error) => {
         setErrMsg(e.message)
@@ -71,7 +71,7 @@ function UpdateRcModel() {
       <p><input type={"text"} defaultValue={rcModelOld.name} onChange={event => setName(event.target.value)} placeholder={"Modellname"} /></p>
       <p><input type={"text"} defaultValue={rcModelOld.description} onChange={event => setDescription(event.target.value)} placeholder={"Beschreibung"} /></p>
       <button onClick={updateModel}>speichern</button>
-      <button onClick={() => navigate("/pilot")}>abbrechen</button>
+      <button onClick={() => navigate(`../pilot/${rcModelOld.pilotId}`)}>abbrechen</button>
     </div>
   );
 }

@@ -6,11 +6,8 @@ import { Pilot } from '../entities/interfaces';
 function UpdatePilot() {
 
   const [oldPilot, setOldPilot] = useState({} as Pilot)
-  const [username, setUsername] = useState("")
-  const [registerKey, setRegisterKey] = useState("")
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
-  const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
 
   const navigate = useNavigate()
@@ -75,7 +72,7 @@ function UpdatePilot() {
         return response.json()
       })
       .then(() =>
-        navigate("../pilot")
+        navigate(`../pilot/${param.pilotId}`)
       )
       .catch((e: Error) => {
         setErrMsg(e.message)
@@ -89,7 +86,7 @@ function UpdatePilot() {
         <p><input type={"text"} defaultValue={oldPilot.firstname} onChange={event => setFirstname(event.target.value)} placeholder={"Vorname"} /></p>
         <p><input type={"text"} defaultValue={oldPilot.lastname} onChange={event => setLastname(event.target.value)} placeholder={"Nachname"} /></p>
         <button onClick={updatePilot}>speichern</button>
-        <button onClick={() => navigate("/pilot")}>abbrechen</button>
+        <button onClick={() => navigate(`../pilot/${param.pilotId}`)}>abbrechen</button>
       </div>
     </div>
   );

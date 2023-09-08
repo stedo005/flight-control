@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
 import { Pilot, RcModel } from '../entities/interfaces';
 import { checkLogin } from '../service/Service';
@@ -8,10 +8,10 @@ import RcModelItem from './RcModelItem';
 function PilotItem() {
 
   const navigate = useNavigate()
+  const params = useParams()
 
   const [pilot, setPilot] = useState({} as Pilot)
   const [rcModels, setRcModels] = useState([] as Array<RcModel>)
-  const user = localStorage.getItem("user")
   const [errMsg, setErrMsg] = useState("")
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function PilotItem() {
   }, [errMsg])
 
   const fetchPilot = useCallback(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/${user}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/by-id/${params.pilotId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ function PilotItem() {
       .catch((e: Error) => {
         setErrMsg(e.message)
       })
-  }, [user])
+  }, [params.pilotId])
 
   useEffect(() => {
     fetchPilot()
@@ -49,12 +49,12 @@ function PilotItem() {
       <p>{errMsg}</p>
       <p>Willkommen {pilot.firstname} {pilot.lastname}</p>
       <button onClick={() => navigate(`/update-pilot/${pilot.id}`)}>Pilot bearbeiten</button>
-      <button onClick={() => navigate("/add-rc-model")}>neues Modell anlegen</button>
+      <button onClick={() => navigate(`/add-rc-model/${pilot.id}`)}>neues Modell anlegen</button>
       <div>
         {
           rcModels.length > 0
             ?
-            rcModels.map(model => <p key={model.id} ><RcModelItem rcModel={model} onItemChange={fetchPilot}/></p>)
+            rcModels.map(model => <p key={model.id} ><RcModelItem rcModel={model} onItemChange={fetchPilot} /></p>)
             :
             "Du hast noch keine Modelle angelegt."
         }

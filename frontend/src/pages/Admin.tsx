@@ -22,14 +22,28 @@ function Admin() {
       .then((responseBody: Array<Pilot>) => setPilots(responseBody))
   }
 
+  const deletePilot = (pilotId: string) => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/pilot/delete/${pilotId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    })
+      .then(() => fetchPilots())
+  }
+
   useEffect(() => {
     fetchPilots()
-  },[])
+  }, [])
 
   return (
     <div>
       {
-        pilots.map(pilot => <p key={pilot.id}>{pilot.firstname} {pilot.lastname}<button onClick={() => navigate(`../pilot-admin/${pilot.id}`)}>zum Pilot</button></p>)
+        pilots.map(pilot => <p key={pilot.id}>{pilot.firstname} {pilot.lastname}
+          <button onClick={() => navigate(`../pilot/${pilot.id}`)}>zum Pilot</button>
+          <button onClick={() => deletePilot(pilot.id)}>Pilot löschen</button>
+        </p>)
       }
     </div>
   );

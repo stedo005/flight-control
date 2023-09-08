@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
 import { checkLogin } from '../service/Service';
 
-function AddRcModel() {
+function AddRcModelAdmin() {
 
   const navigate = useNavigate()
+  const params = useParams()
 
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -22,7 +23,7 @@ function AddRcModel() {
       body: JSON.stringify({
         "name": name,
         "description": description,
-        "pilotId": localStorage.getItem("userId"),
+        "pilotId": params.pilotId,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +32,7 @@ function AddRcModel() {
     })
       .then((response) => {
         checkLogin(response)
-        navigate("/pilot")
+        navigate(`/pilot/${params.pilotId}`)
       })
       .catch((e: Error) => {
         setErrMsg(e.message)
@@ -48,5 +49,5 @@ function AddRcModel() {
   );
 }
 
-export default AddRcModel;
+export default AddRcModelAdmin;
 
