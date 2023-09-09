@@ -29,7 +29,7 @@ root.render(
                         <Route path="/add-rc-model/:pilotId" element={<AddRcModel />} />
                         <Route path="/update-rc-model/:modelId" element={<UpdateRcModel />} />
                         <Route path="/update-pilot/:pilotId" element={<UpdatePilot />} />
-                        <Route path="/flightlist" element={<Flightlist />} />
+                        <Route path="/" element={<Flightlist />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

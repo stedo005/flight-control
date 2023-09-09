@@ -8,7 +8,7 @@ function App() {
 
   const logout = () => {
     localStorage.clear()
-    navigate("./flightlist")
+    navigate("./")
   }
 
   return (
@@ -18,7 +18,7 @@ function App() {
       <button onClick={logout}>logout</button>
       <button onClick={() => navigate("./register")}>als Pilot anmelden</button>
       <button onClick={() => navigate(`./pilot/${localStorage.getItem("userId")}`)} hidden={getBooleanFromLocalStorage(localStorage.getItem("hideHangar"))}>mein Hangar</button>
-      <button onClick={() => navigate("./flightlist")}>Flugliste</button>
+      <button onClick={() => navigate("./")}>Flugliste</button>
       <Outlet />
     </div>
   );

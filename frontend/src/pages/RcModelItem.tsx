@@ -15,8 +15,8 @@ interface IsOnFlightlist {
 
 function RcModelItem(props: RcModelItemProps) {
 
-  const [isOnFlightlist, setIsOnFlightlist] = useState(Boolean)
-  const [isPilotOnFlightlist, setIsPilotOnFlightlist] = useState(Boolean)
+  const [isOnFlightlist, setIsOnFlightlist] = useState(true)
+  const [isPilotOnFlightlist, setIsPilotOnFlightlist] = useState(true)
 
   const navigate = useNavigate()
 
@@ -33,7 +33,7 @@ function RcModelItem(props: RcModelItemProps) {
         return response.json()
       })
       .then(() => {
-        navigate("../flightlist")
+        navigate("../")
         checkFlightList()
         props.onItemChange()
       })
